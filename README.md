@@ -189,23 +189,38 @@ public/genshin/                  # 随站打包的原神食物图标
 
 ## 部署
 
-本项目是纯前端静态应用（构建产物为 `dist/` 目录，无服务端、无客户端路由），可直接部署到任何静态托管平台，推荐 Cloudflare Pages（免费、自动 HTTPS、支持预览部署）。
+本项目已部署到 Cloudflare Pages（直传模式）：
 
-### 部署到 Cloudflare Pages
+> **线上地址：<https://what-to-eat-today-1gh.pages.dev>**
 
-1. 将代码推送到 GitHub 仓库（见下节）
-2. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**，按提示授权 GitHub 并选择本仓库
-3. 构建配置填写：
+### 当前部署方式：Wrangler 直传
 
-   | 配置项 | 值 |
-   | --- | --- |
-   | Production branch | `main` |
-   | Build command | `npm run build` |
-   | Build output directory | `dist` |
+构建产物通过 Cloudflare 官方 CLI（Wrangler）直接上传，已配置为一条命令：
 
-4. 点击 **Save and Deploy**，等待构建完成即可获得 `*.pages.dev` 域名
+```bash
+npm run deploy
+# 等价于：npm run build && wrangler pages deploy dist --project-name=what-to-eat-today --branch=main
+```
 
-> 之后每次推送到 `main` 分支，Cloudflare 会自动重新构建部署；Pull Request 会生成独立的预览部署。
+首次使用需先登录 Cloudflare（只需一次，浏览器授权）：
+
+```bash
+npx wrangler login
+```
+
+> 说明：直传（direct upload）与「连接 Git 仓库自动构建」是 Cloudflare Pages 的两种项目类型，创建后不能互换。本项目采用直传，因此推送到 GitHub 不会自动触发部署，更新需手动执行 `npm run deploy`。
+
+### 备选：连接 GitHub 自动构建
+
+如果希望「推送即部署」，可以在 Cloudflare Dashboard 新建一个 Pages 项目（Workers & Pages → Create → Pages → Connect to Git），选择本仓库并填写：
+
+| 配置项 | 值 |
+| --- | --- |
+| Production branch | `main` |
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+
+新的 `*.pages.dev` 域名会分配给新项目。
 
 ### 推送到 GitHub（Windows PowerShell）
 
