@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/* 类名驱动的暗色模式变体：在 <html> 上挂 .dark 时全局生效 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* 奶油白背景 */
+  --color-cream-50: #fffdf7;
+  --color-cream-100: #fdf8ef;
+  --color-cream-200: #f9f0de;
+
+  /* 暖橙色主色 */
+  --color-orange-warm-50: #fff7ed;
+  --color-orange-warm-100: #ffedd5;
+  --color-orange-warm-200: #fed7aa;
+  --color-orange-warm-300: #fdba74;
+  --color-orange-warm-400: #fb923c;
+  --color-orange-warm-500: #f97316;
+  --color-orange-warm-600: #ea580c;
+  --color-orange-warm-700: #c2410c;
+
+  /* 强调粉（点缀） */
+  --color-blush-300: #fda4af;
+  --color-blush-400: #fb7185;
+
+  /* 芒果黄（渐变搭档） */
+  --color-mango-300: #fcd34d;
+  --color-mango-400: #fbbf24;
+
+  --font-sans: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei UI",
+    "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+
+  --animate-bounce-subtle: bounce-subtle 2.4s ease-in-out infinite;
+  --animate-pop-in: pop-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-float: float 5s ease-in-out infinite;
+  --animate-wiggle: wiggle 0.5s ease-in-out infinite;
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0.86) translateY(12px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-14px) rotate(4deg); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+
+/* ─────────────── 主题基础变量（供 body / SVG / 全局样式使用） ─────────────── */
+:root {
+  --bg: #fdf8ef;
+  --ink: #292524;
+  --ink-soft: #57534e;
+  --ink-muted: #a8a29e;
+  --surface-solid: #ffffff;
+  --surface-translucent: rgba(255, 255, 255, 0.8);
+  --card-border: #ffedd5;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #0c0a09;
+  --ink: #f5f5f4;
+  --ink-soft: #d6d3d1;
+  --ink-muted: #a8a29e;
+  --surface-solid: #1c1917;
+  --surface-translucent: rgba(28, 25, 23, 0.8);
+  --card-border: #292524;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 键盘可达性：为所有可交互元素提供清晰一致的 focus 指示 */
+:where(button, a, [role="button"], input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--color-orange-warm-500);
+  outline-offset: 2px;
+}
+
+/* 尊重系统"减少动态效果"偏好：关闭自定义动画与过渡 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 隐藏横向滚动条（分类 chips 等横向滚动容器用） */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

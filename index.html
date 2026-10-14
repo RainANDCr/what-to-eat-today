@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="今天吃什么？—— 随机美食推荐小工具，帮你告别选择困难"
+    />
+    <meta name="theme-color" content="#fb923c" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="今天吃什么？" />
+    <meta
+      property="og:description"
+      content="随机美食推荐 + 幸运转盘 + 美食图鉴，帮你告别选择困难。含 500+ 道美食与原神联动料理。"
+    />
+    <title>今天吃什么？</title>
+    <script>
+      // 首屏主题防闪烁：在 React 挂载前根据持久化偏好或系统主题设置 .dark
+      (function () {
+        try {
+          var pref = localStorage.getItem('what-to-eat:theme');
+          var dark =
+            pref === 'dark' ||
+            (pref !== 'light' &&
+              window.matchMedia &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) document.documentElement.classList.add('dark');
+        } catch (e) {
+          /* 忽略 */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
