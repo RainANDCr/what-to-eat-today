@@ -34,3 +34,6 @@ __pycache__/
 
 # WorkBuddy 本地工作目录（会话记忆等，与项目代码无关）
 .workbuddy/
+
+# xlsx 内嵌旧图（已被 wiki 官方图标取代，本地未引用，保留磁盘文件暂不删）
+public/genshin/image*
